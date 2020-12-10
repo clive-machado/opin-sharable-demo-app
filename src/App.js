@@ -6,7 +6,7 @@ import './App.css';
 // 1. SET OPIN CONFIGURATION
 var options = {
   'mediaProperties' : ['blt5de182c7688d8331'],
-  "baseURL" : "https://dev-nba-api-cdn.opin.media"
+  "baseURL" : "https://dev-nba-api.opin.media"
 };
 
 // 2. INTIALIZE WITH OPiN constructor.
@@ -26,6 +26,16 @@ const App = () => {
 	const [partners, setPartners] = useState([]);
 	const [signInTranslations, setSignInTranslations] = useState(null)
 	
+
+	/**
+	 * syncTranslations function Executed 
+	 * @param {*} partner - This is a partner instance
+	 * @param {Object} tags - This is the translation tag object 
+	 */
+	const syncTranslations = (partner, tags) => {
+		return partner.syncTranslations(tags)
+	}
+
   /*
    * Detect Partner function Executed
    */
@@ -44,15 +54,6 @@ const App = () => {
 		})
 	}
 	
-	/**
-	 * syncTranslations function Executed 
-	 * @param {*} partner - This is a partner instance
-	 * @param {Object} tags - This is the translation tag object 
-	 */
-	const syncTranslations = (partner, tags) => {
-		return partner.syncTranslations(tags)
-	}
-
 	/**
 	 * execute Work Flow function Executed
 	 * @param {*} partner - This is a partner instance
