@@ -5,7 +5,7 @@ import './App.css';
 
 // 1. SET OPIN CONFIGURATION
 var options = {
-  'mediaProperties' : ['blt5de182c7688d8331'],
+  'mediaProperties' : ['blt988d82fa41b9e28a'],
   "baseURL" : "https://dev-nba-api.opin.media"
 };
 
@@ -24,6 +24,7 @@ opin.setLocale('en-US') //sets Translation Language
 const App = () => {
 	const [loader, setLoader] = useState(false);
 	const [partners, setPartners] = useState([]);
+	const [loggedInPartner, setLoggedInPartner] = useState(null)
 	const [signInTranslations, setSignInTranslations] = useState(null)
 	
 
@@ -84,18 +85,58 @@ const App = () => {
 	}
 
 	/**
+	 * fetches the logged in partners trasnlations
+	 */
+	const fetchLoggedInSyncTranslations = () => {
+		setLoader(true)
+		getLoggedInPartner()
+		.then((partner) => {
+			return syncTranslations(partner)
+		})
+		.then((partner) => {
+			setLoggedInPartner(loggedInPartner)
+			setLoader(false)
+		})
+	}
+
+	/**
+	 * 
+	 */
+	const renderSyncTrasnlations = () => {
+		// const {} = loggedInPartner
+		console.log("loggedInPartner ", loggedInPartner);
+		return (
+			<p>Sync Trasnlations data</p>
+		)
+	}
+
+	/**
 	 * renders Logged in partner
 	 */
 	const renderLoggedInPartner = () => {
 		return (
 			<>
 				<p>Welcome you're logged In </p>
-				<Button 
+				<Button
 					type="primary"
 					onClick={()=>logout()}
 				>
 					Logout
 				</Button>
+				<br />
+				<br />
+				<Button
+					type="primary"
+					onClick={()=>fetchLoggedInSyncTranslations()}
+				>
+					Sync Translations
+				</Button>
+				<div>
+				{ 
+					!loggedInPartner && loader ? <Spin size="large" /> : 
+					loggedInPartner && !loader ? renderSyncTrasnlations() : ""
+				}
+				</div>
 			</>
 		)
 	}
