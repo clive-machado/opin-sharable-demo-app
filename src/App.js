@@ -96,11 +96,14 @@ const App = () => {
 	 */
 	const fetchLoggedInSyncTranslations = () => {
 		setSyncLoader(true)
+		//gets logged in partner information
 		getLoggedInPartner()
 		.then((partner) => {
+			// calls sync translations
 			return syncTranslations(partner)
 		})
 		.then((partner) => {
+			//sets the logged in partner
 			setLoggedInPartner(partner)
 			setSyncLoader(false)
 		})
