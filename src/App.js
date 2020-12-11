@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, Button, Modal, Spin } from 'antd';
 import ReactJson from 'react-json-view';
 import './App.css';
@@ -23,9 +23,15 @@ opin.setLocale('en-US') //sets Translation Language
  */
 const App = () => {
 	const [loader, setLoader] = useState(false);
+	const [syncLoader, setSyncLoader] = useState(false);
+
 	const [partners, setPartners] = useState([]);
 	const [loggedInPartner, setLoggedInPartner] = useState(null)
 	const [signInTranslations, setSignInTranslations] = useState(null)
+
+
+	useEffect(() => {
+	}, [])
 	
 
 	/**
@@ -72,6 +78,7 @@ const App = () => {
 		return opin.logout()
 		.then(() =>{
 			setSignInTranslations(null)
+			setLoggedInPartner(null)
 			setPartners([])
 			setLoader(false)
 		})
@@ -85,28 +92,36 @@ const App = () => {
 	}
 
 	/**
-	 * fetches the logged in partners trasnlations
+	 * fetches the logged in partners translations
 	 */
 	const fetchLoggedInSyncTranslations = () => {
-		setLoader(true)
+		setSyncLoader(true)
 		getLoggedInPartner()
 		.then((partner) => {
 			return syncTranslations(partner)
 		})
 		.then((partner) => {
-			setLoggedInPartner(loggedInPartner)
-			setLoader(false)
+			setLoggedInPartner(partner)
+			setSyncLoader(false)
 		})
 	}
 
 	/**
-	 * 
+	 * renders sync translation data 
 	 */
 	const renderSyncTrasnlations = () => {
-		// const {} = loggedInPartner
-		console.log("loggedInPartner ", loggedInPartner);
+		const { partner_name, partner_type, logged_in_short_description, partner_configuration_name, partner_configuration_uid } 
+		= loggedInPartner.data
 		return (
-			<p>Sync Trasnlations data</p>
+			<>
+				<h2 style={{
+					color : "blue"
+				}}>{partner_name} </h2>
+				<p><b>UID :</b> {partner_configuration_uid} </p>
+				<p><b>Partner Configuration Name :</b> {partner_configuration_name}</p>
+				<p><b>Partner Type :</b> {partner_type}</p>
+				<p><b>Description :</b> {logged_in_short_description}</p>
+			</>
 		)
 	}
 
@@ -131,10 +146,12 @@ const App = () => {
 				>
 					Sync Translations
 				</Button>
+				<br />
+				<br />
 				<div>
 				{ 
-					!loggedInPartner && loader ? <Spin size="large" /> : 
-					loggedInPartner && !loader ? renderSyncTrasnlations() : ""
+					!loggedInPartner && syncLoader ? <Spin size="large" /> : 
+					loggedInPartner && !syncLoader ? renderSyncTrasnlations() : ""
 				}
 				</div>
 			</>
