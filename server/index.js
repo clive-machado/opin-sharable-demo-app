@@ -13,6 +13,6 @@ app.get("/cosmote-demo", function (req, res, next) {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 })
 
-app.listen(3001, function () {
-  console.log("app listening on port", 3001)
+app.listen(3005, function () {
+  console.log("app listening on port", 3005)
 })
