@@ -9,7 +9,7 @@ app.use("/opin-sharable-demo-app/", express.static(path.join(__dirname, "..", "b
 //   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 // });
 
-app.get("/cosmote-demo", function (req, res, next) {
+app.get("/buzzer-demo", function (req, res, next) {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 })
 
