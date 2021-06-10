@@ -5,8 +5,11 @@ import './App.css';
 
 // 1. SET OPIN CONFIGURATION
 var options = {
-  'mediaProperties' : ['blt5de182c7688d8331'],
-  "baseURL" : "https://dev-nba-api.opin.media"
+  'mediaProperties' : ['blt4930d9186a46c777'],
+  "baseURL" : "https://dev-nba-api.opin.media",
+	"sessionType": "cookie",
+  "cookieDomain": ".nba.com",
+  "env": "dev"
 };
 
 // 2. INTIALIZE WITH OPiN constructor.
@@ -133,16 +136,24 @@ const App = () => {
 		const styleObj = {
 			color : "blue"
 		}
+
+		// Checks if partners list is empty
+		if(partners && partners.length <= 0){
+			return(
+				<h2 style={{ color: `#a93f3f` }}>No Partner found please click detect button or check SDK configuration!</h2>
+			)
+		}
+
     return (
         <div>
-					{ partners.map( partner => {							
+					{ partners.map( partner => {
 							return (
-								<div key={partner.getConfigurationUid()}>
-									<h2 style={styleObj}>{ partner.getName() } - {( partner.data.login_redirect ? "Redirect Full Page" : "Same Window" )}</h2>
-									<Button 
+								<div style={{ border : `1px solid grey`, margin: `0 30%`}} key={partner.getConfigurationUid()}>
+									<h2 style={styleObj}>{ partner.getName() } - {( partner.data.login_redirect ? "(Full Page Redirect Partner)" : "(Non Full Page redirect Partner)" )}</h2>
+									<Button
 										type="primary"
 										onClick={()=>setSignInTranslations(partner)}
-									>	
+									>
 											Activate
 									</Button><br/><br/>
 								</div>
