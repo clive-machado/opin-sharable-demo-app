@@ -148,7 +148,7 @@ const App = () => {
         <div>
 					{ partners.map( partner => {
 							return (
-								<div style={{ border : `1px solid grey`, margin: `0 30%`}} key={partner.getConfigurationUid()}>
+								<div style={{ border : `1px solid grey`, margin: `1% 30%`}} key={partner.getConfigurationUid()}>
 									<h2 style={styleObj}>{ partner.getName() } - {( partner.data.login_redirect ? "(Full Page Redirect Partner)" : "(Non Full Page redirect Partner)" )}</h2>
 									<Button
 										type="primary"
