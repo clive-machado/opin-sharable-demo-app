@@ -5,7 +5,7 @@ import './App.css';
 
 // 1. SET OPIN CONFIGURATION
 var options = {
-  'mediaProperties' : ['blt5de182c7688d8331'],
+  'mediaProperties' : ['blt4d1a43fd4c593862'],
   "baseURL" : "https://dev-nba-api.opin.media",
 	"sessionType": "cookie",
   "cookieDomain": ".nba.com",
