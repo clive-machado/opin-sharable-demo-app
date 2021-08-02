@@ -26,6 +26,8 @@ opin.setLocale('en-US') //sets Translation Language
  */
 const App = () => {
 	const [loader, setLoader] = useState(false);
+	const [enableExecuteAgain, setEnableExecuteAgain] = useState(false);
+
 	const [partners, setPartners] = useState([]);
 	const [signInTranslations, setSignInTranslations] = useState(null)
 	
@@ -62,7 +64,11 @@ const App = () => {
 	 * @param {*} partner - This is a partner instance
 	 */
   const executeWorkflow = (partner) => {
-    var dom_selector = '#opin-wrapper'
+		if (signInTranslations){
+			const { data } = signInTranslations;
+			setEnableExecuteAgain(!data.login_redirect)
+		}
+    const dom_selector = '#opin-wrapper'
     partner.executeWorkflow(dom_selector);
 	}
 
@@ -109,6 +115,22 @@ const App = () => {
 	const renderSignInBox = () => {
 		const parterData = signInTranslations.data
 		const { logo, partner_configuration_name, login_redirect, partner_type } = parterData
+
+		if(enableExecuteAgain){
+			return (
+				<>
+					<Button 
+						type="primary"
+						onClick={()=>executeWorkflow(signInTranslations)}
+					>
+						Try Execute Workflow Again
+					</Button>
+					<br /><br />
+					<hr />
+				</>
+			)
+		}
+
 		return (
 			<>
 				<Image
@@ -125,8 +147,6 @@ const App = () => {
 				>
 					Execute Workflow
 				</Button>
-				<br /><br />
-				<hr />
 			</>
 		)
 	}
@@ -175,6 +195,7 @@ const App = () => {
 			{ opin.hasLoggedInPartner() ? loader ? <Spin size="large" /> : renderLoggedInPartner() : (
 				<div>
 					{/* Checks if the user has clicked on any partner then renders the sign in box for the partner or else renders the list of partners */}		
+					{console.log("signInTranslations", signInTranslations)}
 					{signInTranslations ? renderSignInBox() : (
 						<>
 							<Button onClick={() => detectPartner()}>Detect Partner</Button><br/><br/>
@@ -183,7 +204,7 @@ const App = () => {
 					)}
 				</div>
 			)}
-			<div id="opin-wrapper" style={{height:300}} />
+			<div id="opin-wrapper" style={{height:`100vh`}} />
 		</div>
 	);
 }
