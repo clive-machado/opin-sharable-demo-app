@@ -194,8 +194,7 @@ const App = () => {
 			{/* Checks if a partner is already logged in */}
 			{ opin.hasLoggedInPartner() ? loader ? <Spin size="large" /> : renderLoggedInPartner() : (
 				<div>
-					{/* Checks if the user has clicked on any partner then renders the sign in box for the partner or else renders the list of partners */}		
-					{console.log("signInTranslations", signInTranslations)}
+					{/* Checks if the user has clicked on any partner then renders the sign in box for the partner or else renders the list of partners */}
 					{signInTranslations ? renderSignInBox() : (
 						<>
 							<Button onClick={() => detectPartner()}>Detect Partner</Button><br/><br/>
