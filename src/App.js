@@ -5,11 +5,11 @@ import './App.css';
 
 // 1. SET OPIN CONFIGURATION
 var options = {
-  'mediaProperties' : ['blt44c3fa8af828ad1f'],
-  "baseURL" : "https://stag-nba-api.opin.media",
+  'mediaProperties' : ['blt7d93a1ba092ab611'],
+  "baseURL" : "https://dev-nba-api.opin.media",
 	"sessionType": "cookie",
   "cookieDomain": ".nba.com",
-  "env": "stag"
+  "env": "dev"
 };
 
 // 2. INTIALIZE WITH OPiN constructor.
@@ -125,6 +125,8 @@ const App = () => {
 				>
 					Execute Workflow
 				</Button>
+				<br /><br />
+				<hr />
 			</>
 		)
 	}
