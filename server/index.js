@@ -9,10 +9,10 @@ app.use("/opin-sharable-demo-app/", express.static(path.join(__dirname, "..", "b
 //   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 // });
 
-app.get("/buzzer-demo", function (req, res, next) {
+app.get("/sharable-app", function (req, res, next) {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 })
 
-app.listen(3005, function () {
-  console.log("app listening on port", 3005)
+app.listen(4002, function () {
+  console.log("app listening on port", 4002)
 })
