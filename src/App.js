@@ -4,9 +4,10 @@ import ReactJson from 'react-json-view';
 import './App.css';
 
 // 1. SET OPIN CONFIGURATION
+// dev - 'blt4d1a43fd4c593862'
 var options = {
-  'mediaProperties' : ['blt7d93a1ba092ab611'],
-  "baseURL" : "https://dev-nba-api.opin.media",
+  'mediaProperties' : ['blt5de182c7688d8331'],
+  "baseURL" : "https://stag-nba-api.opin.media",
 	"sessionType": "cookie",
   "cookieDomain": ".nba.com",
   "env": "dev"
