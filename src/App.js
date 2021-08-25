@@ -5,10 +5,10 @@ import './App.css';
 
 // 1. SET OPIN CONFIGURATION
 var options = {
-  'mediaProperties' : ['blt7d93a1ba092ab611'],
-  "baseURL" : "https://dev-nba-api.opin.media",
+  'mediaProperties' : ['blt44c3fa8af828ad1f'],
+  "baseURL" : "https://stag-nba-api.opin.media",
 	"sessionType": "cookie",
-  "cookieDomain": ".nba.com",
+  "cookieDomain": "",
   "env": "dev"
 };
 
@@ -69,7 +69,28 @@ const App = () => {
 			setEnableExecuteAgain(!data.login_redirect)
 		}
     const dom_selector = '#opin-wrapper'
-    partner.executeWorkflow(dom_selector);
+    partner.executeWorkflow(dom_selector)
+		.then(jwtToken => {
+			/** 
+			 * The JWT Token is given back in this block.
+			 * Note: This does not work in OAUTH and SAML based login types when Full Page is redirected for Sign In screen.
+			 * We need a endpoint hosted by the SDK integrator to get the token. We call it '/opint' endpoint. 
+			**/
+			alert("You have logged in!")
+			alert(`This is .executeWorkflow() JWT response : ${jwtToken}`);
+			
+			setEnableExecuteAgain(false)
+			//Clearing out dom selectors HTML content
+			document.querySelector(dom_selector).innerHTML = '';
+		})
+		.catch(err => {
+			//When subscription error occurs
+			alert(err.type)
+			setEnableExecuteAgain(false)
+
+			//Clearing out dom selectors HTML content
+			document.querySelector(dom_selector).innerHTML = '';
+		});
 	}
 
 	/**
@@ -194,8 +215,7 @@ const App = () => {
 			{/* Checks if a partner is already logged in */}
 			{ opin.hasLoggedInPartner() ? loader ? <Spin size="large" /> : renderLoggedInPartner() : (
 				<div>
-					{/* Checks if the user has clicked on any partner then renders the sign in box for the partner or else renders the list of partners */}		
-					{console.log("signInTranslations", signInTranslations)}
+					{/* Checks if the user has clicked on any partner then renders the sign in box for the partner or else renders the list of partners */}	
 					{signInTranslations ? renderSignInBox() : (
 						<>
 							<Button onClick={() => detectPartner()}>Detect Partner</Button><br/><br/>
