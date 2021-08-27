@@ -9,7 +9,7 @@ var options = {
   "baseURL" : "https://stag-nba-api.opin.media",
 	"sessionType": "cookie",
   "cookieDomain": "",
-  "env": "dev"
+  "env": "stag"
 };
 
 // 2. INTIALIZE WITH OPiN constructor.
