@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-		"start": "pm2 start index.js --name cosmote",
-		"stop" : "pm2 stop cosmote"
+    "start": "pm2 start index.js --name cosmote",
+    "stop": "pm2 stop cosmote"
   },
   "author": "",
   "license": "ISC",
