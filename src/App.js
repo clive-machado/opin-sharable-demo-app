@@ -6,11 +6,11 @@ import './App.css';
 // 1. SET OPIN CONFIGURATION
 // dev - 'blt4d1a43fd4c593862'
 var options = {
-  'mediaProperties' : ['blt5de182c7688d8331'],
+  'mediaProperties' : ['blt050b4d51ee48a394'],
   "baseURL" : "https://stag-nba-api.opin.media",
 	"sessionType": "cookie",
-  "cookieDomain": ".nba.com",
-  "env": "dev"
+  "cookieDomain": "",
+  "env": "stag"
 };
 
 // 2. INTIALIZE WITH OPiN constructor.
@@ -18,7 +18,7 @@ var options = {
 // var opin = new OPiN(options) for vanilla javascript
 var opin = new window.OPiN(options)
 var envData={
-  'countryCode': 'IN'   //filter Partner based on Country
+  'countryCode': 'ES'   //filter Partner based on Country
 }
 opin.setLocale('en-US') //sets Translation Language
 
@@ -70,7 +70,28 @@ const App = () => {
 			setEnableExecuteAgain(!data.login_redirect)
 		}
     const dom_selector = '#opin-wrapper'
-    partner.executeWorkflow(dom_selector);
+    partner.executeWorkflow(dom_selector)
+		.then(jwtToken => {
+			/** 
+			 * The JWT Token is given back in this block.
+			 * Note: This does not work in OAUTH and SAML based login types when Full Page is redirected for Sign In screen.
+			 * We need a endpoint hosted by the SDK integrator to get the token. We call it '/opint' endpoint. 
+			**/
+			alert("You have logged in!")
+			alert(`This is .executeWorkflow() JWT response : ${jwtToken}`);
+			
+			setEnableExecuteAgain(false)
+			//Clearing out dom selectors HTML content
+			document.querySelector(dom_selector).innerHTML = '';
+		})
+		.catch(err => {
+			//When subscription error occurs
+			alert(err.type)
+			setEnableExecuteAgain(false)
+
+			//Clearing out dom selectors HTML content
+			document.querySelector(dom_selector).innerHTML = '';
+		});
 	}
 
 	/**
@@ -195,7 +216,7 @@ const App = () => {
 			{/* Checks if a partner is already logged in */}
 			{ opin.hasLoggedInPartner() ? loader ? <Spin size="large" /> : renderLoggedInPartner() : (
 				<div>
-					{/* Checks if the user has clicked on any partner then renders the sign in box for the partner or else renders the list of partners */}
+					{/* Checks if the user has clicked on any partner then renders the sign in box for the partner or else renders the list of partners */}	
 					{signInTranslations ? renderSignInBox() : (
 						<>
 							<Button onClick={() => detectPartner()}>Detect Partner</Button><br/><br/>
