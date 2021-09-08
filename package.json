@@ -2,7 +2,7 @@
   "name": "ui",
   "version": "0.1.0",
 	"private": true,
-	"homepage": ".",
+	"homepage": "http://clive-machao.github.io/opin-sharable-demo-app",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.1.2",
@@ -22,7 +22,8 @@
 		"eject": "react-scripts eject",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d build",
-		"stop": "cd server && npm run stop"
+		"stop": "cd server && npm run stop",
+		"firebase" : "npm run build && firebase deploy"
   },
   "eslintConfig": {
     "extends": [
